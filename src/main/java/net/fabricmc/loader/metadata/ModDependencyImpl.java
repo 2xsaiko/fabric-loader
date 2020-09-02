@@ -42,6 +42,10 @@ final class ModDependencyImpl implements ModDependency {
 
 	@Override
 	public boolean matches(Version version) {
+		if (System.getProperty("fabric_loader_version_placeholder", "").equals("true") && version.getFriendlyString().equals("${version}")) {
+			return true;
+		}
+
 		for (String s : this.matcherStringList) {
 			try {
 				if (VersionPredicateParser.matches(version, s)) {
